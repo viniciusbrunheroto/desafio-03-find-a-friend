@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Age {
+  Filhote
+  Jovem
+  Adulto
+  Idoso
+}
+
+enum Size {
+  Pequenino
+  Pequeno
+  Médio
+  Grande
+}
+
+enum IndependecyLevel {
+  Baixo
+  Médio
+  Alto
+}
+
+
+model Organization {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  cep String
+  address String
+  password_hash String
+  whatsapp_number String
+  created_at DateTime @default(now())
+
+  pets Pet[]
+
+  @@map("organizations")
+}
+
+model Pet {
+  id String @id @default(uuid())
+  name String
+  description String?
+  city String
+  age Age?
+  size Size?
+  energy_level Int?
+  independency_level IndependecyLevel?
+  environment String?
+
+  organization Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
+
+  petPhotos PetPhoto[]
+
+  petRequirements PetRequirement[]
+
+  @@map("pets")
+}
+
+model PetPhoto {
+  id String @id @default(uuid())
+  url String
+
+  pet Pet  @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  pet_id String
+
+  @@map("photos")
+}
+
+model PetRequirement {
+  id String @id @default(uuid())
+  requirement String
+
+  pet Pet @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  pet_id String
+
+  @@map("requirements")
+}
