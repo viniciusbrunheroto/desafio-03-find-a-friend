@@ -24,6 +24,8 @@ describe('Refresh Token (e2e)', () => {
         address: 'Avenida dos Animais, 1020 - Centro, Campinas - SP',
         password: 'senhaSegura123',
         whatsappNumber: '19991234567',
+        latitude: -22.5418212,
+        longitude: -47.9231322,
       })
 
     const authResponse = await request(app.server)

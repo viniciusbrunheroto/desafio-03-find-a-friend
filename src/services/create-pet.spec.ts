@@ -25,7 +25,9 @@ describe('Create Pet Use Case', () => {
       password_hash: await hash('Patas@2026', 6),
       cep: '13010-210',
       address: 'Rua das Acácias, 245',
-      whatsapp_number: '19991234567'
+      whatsapp_number: '19991234567',
+      latitude: -22.7422412,
+      longitude: -47.6352641,
     })
   
     const { pet } = await sut.execute({

@@ -19,7 +19,6 @@ export class FetchPetsUseCase {
 
   async execute(data :FetchPetsUseCaseRequest ): Promise<FetchPetsUseCaseResponse> {
     
-    
     const pets = await this.petsRepository.findMany(data)
 
     return { pets }

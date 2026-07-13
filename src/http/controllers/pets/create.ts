@@ -12,27 +12,19 @@ export async function create(req: FastifyRequest, res: FastifyReply) {
     energyLevel: z.number().nullable(),
     independencyLevel: z.enum([ 'Baixo', 'Médio' ,'Alto' ]).nullable(),
     environment: z.string().nullable(),
-    organizationId: z.string(),
     photos: z.array(z.string()),
     requirements: z.array(z.string()),
   })
 
-  const {name, description, city, age, size, energyLevel, independencyLevel, environment, organizationId, photos, requirements} = registerBodySchema.parse(req.body)
+  const body = registerBodySchema.parse(req.body)
 
   const CreatePetUseCase = makeCreatePetUseCase()
+  const org_id = req.user.sub
+
 
   const pet = await CreatePetUseCase.execute({
-    name,
-    description,
-    city,
-    age,
-    size,
-    energyLevel,
-    independencyLevel,
-    environment,
-    organizationId,
-    photos,
-    requirements
+    ...body,
+    organizationId: org_id,
   })
 
   return res.status(200).send({

@@ -1,7 +1,7 @@
 import type { OrganizationsRepository } from '@/repositories/organizations-repository.js'
 import type { Pet } from '../../prisma/generated/prisma/client.js'
 import type { PetsRepository } from '@/repositories/pets-repository.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
+import { OrganizationNotFoundError } from './errors/organization-not-found-error.js'
 
 export interface CreatePetUseCaseRequest {
     name: string
@@ -33,7 +33,7 @@ export class CreatePetUseCase {
 
     
     if (!organization) {
-      throw new ResourceNotFoundError()
+      throw new OrganizationNotFoundError()
     }
     
 

@@ -1,9 +1,11 @@
 import { randomUUID } from 'node:crypto'
-import type { Organization } from '../../../prisma/generated/prisma/client.js'
+import { Prisma, type Organization } from '../../../prisma/generated/prisma/client.js'
 import type { OrganizationCreateInput } from '../../../prisma/generated/prisma/models.js'
-import type { OrganizationsRepository } from '../organizations-repository.js'
+import type { FindManyNearbyParams, OrganizationsRepository } from '../organizations-repository.js'
+import { getDistanceBetweenCoordinates } from '@/utils/test/get-distance-between-coordinates.js'
 
 export class InMemoryOrganizationsRepository implements OrganizationsRepository {
+
 
   public orgs: Organization[] = []
 
@@ -28,6 +30,17 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
     return org
   }
 
+  async findManyNearby(params: FindManyNearbyParams){
+    return this.orgs.filter(org => {
+      const distance = getDistanceBetweenCoordinates(
+        {latitude: params.latitude, longitude: params.longitude},
+        {latitude: org.latitude.toNumber(), longitude: org.longitude.toNumber()}
+      )
+
+      return distance < 10
+    })
+  }
+
 
   async create(data: OrganizationCreateInput) {
     
@@ -39,6 +52,8 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
       cep: data.cep,
       address: data.address,
       whatsapp_number: data.whatsapp_number,
+      latitude: new Prisma.Decimal(data.latitude.toString()),
+      longitude: new Prisma.Decimal(data.longitude.toString()),
       created_at: new Date(),
     }
 

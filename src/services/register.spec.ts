@@ -20,7 +20,9 @@ describe('Register Use Case', () => {
       password: 'Patas@2026',
       cep: '13010-210',
       address: 'Rua das Acácias, 245',
-      whatsappNumber: '19991234567'
+      whatsappNumber: '19991234567',
+      latitude: -22.7422412,
+      longitude: -47.6352641,
     })
 
     expect(organization.id).toEqual(expect.any(String))
@@ -33,7 +35,9 @@ describe('Register Use Case', () => {
       password: 'Patas@2026',
       cep: '13010-210',
       address: 'Rua das Acácias, 245',
-      whatsappNumber: '19991234567'
+      whatsappNumber: '19991234567',
+      latitude: -22.7422412,
+      longitude: -47.6352641,
     })
 
     const isPasswordCorreclyHashed = await compare(
@@ -53,7 +57,9 @@ describe('Register Use Case', () => {
       password: 'Patas@2026',
       cep: '13010-210',
       address: 'Rua das Acácias, 245',
-      whatsappNumber: '19991234567'
+      whatsappNumber: '19991234567',
+      latitude: -22.7422412,
+      longitude: -47.6352641,
     })
 
     await expect(() => 
@@ -63,7 +69,9 @@ describe('Register Use Case', () => {
         password: 'Patas@2026',
         cep: '13010-210',
         address: 'Rua das Acácias, 245',
-        whatsappNumber: '19991234567'
+        whatsappNumber: '19991234567',
+        latitude: -22.7422412,
+        longitude: -47.6352641,
       })).rejects.toBeInstanceOf(OrganizationAlreadyExistsError)
   })
 })

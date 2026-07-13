@@ -10,6 +10,8 @@ interface RegisterUseCaseRequest {
     cep: string
     address: string
     whatsappNumber: string
+    latitude: number
+    longitude: number
 }
 
 interface RegisterUseCaseResponse {
@@ -19,7 +21,7 @@ interface RegisterUseCaseResponse {
 export class RegisterUseCase {
   constructor (private organizationsRepository: OrganizationsRepository) {}
 
-  async execute({name, email,password,cep, address, whatsappNumber}: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  async execute({name, email,password,cep, address, whatsappNumber, latitude, longitude}: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
 
     const password_hash = await hash(password, 6)
 
@@ -36,6 +38,8 @@ export class RegisterUseCase {
       address,
       cep,
       whatsapp_number: whatsappNumber,
+      latitude,
+      longitude
     })
 
     return { organization }

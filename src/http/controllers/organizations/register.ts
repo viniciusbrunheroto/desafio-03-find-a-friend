@@ -11,10 +11,16 @@ export async function register(req: FastifyRequest, res: FastifyReply) {
     address: z.string(),
     password: z.string().min(6),
     whatsappNumber: z.string(),
+    latitude: z.number().refine(value => {
+      return Math.abs(value) <= 90
+    }),
+    longitude: z.number().refine(value => {
+      return Math.abs(value) <= 180
+    })
   })
 
 
-  const {name,email,password,cep,address,whatsappNumber} = registerBodySchema.parse(req.body)
+  const {name,email,password,cep,address,whatsappNumber, latitude, longitude} = registerBodySchema.parse(req.body)
 
 
   try{
@@ -28,7 +34,9 @@ export async function register(req: FastifyRequest, res: FastifyReply) {
       password,
       address,
       cep,
-      whatsappNumber
+      whatsappNumber,
+      latitude,
+      longitude
     })
   } catch (err) {
 

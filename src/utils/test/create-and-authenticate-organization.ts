@@ -14,6 +14,8 @@ export async function createAndAuthenticateOrganization(app: FastifyInstance) {
       address: 'Avenida dos Animais, 1020 - Centro, Campinas - SP',
       whatsapp_number: '19991234567',
       cep: '13015-220',
+      latitude: -22.7422412,
+      longitude: -47.6352641,
     }
   })
 

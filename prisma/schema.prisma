@@ -26,7 +26,7 @@ enum Size {
   Grande
 }
 
-enum IndependecyLevel {
+enum IndependencyLevel {
   Baixo
   Médio
   Alto
@@ -43,6 +43,9 @@ model Organization {
   whatsapp_number String
   created_at DateTime @default(now())
 
+  latitude Decimal
+  longitude Decimal
+
   pets Pet[]
 
   @@map("organizations")
@@ -56,7 +59,7 @@ model Pet {
   age Age?
   size Size?
   energy_level Int?
-  independency_level IndependecyLevel?
+  independency_level IndependencyLevel?
   environment String?
 
   organization Organization @relation(fields: [organization_id], references: [id])

@@ -1,7 +1,7 @@
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-repository.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { GetPetDetailsUseCase } from './get-pet-details.js'
-import { ResourceNotFoundError } from './errors/resource-not-found-error.js'
+import { PetNotFoundError } from './errors/pet-not-found-error.js'
 
 let petsRepository: InMemoryPetsRepository
 let sut: GetPetDetailsUseCase
@@ -22,7 +22,7 @@ describe('Fetch Pet Details Use Case', () => {
       description: null,
       energyLevel: 3,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Baixo',
       size: 'Grande',
       photos: [{
@@ -47,6 +47,6 @@ describe('Fetch Pet Details Use Case', () => {
     await expect(() =>
       sut.execute({
         petId: 'non-existing-id'
-      })).rejects.toBeInstanceOf(ResourceNotFoundError)
+      })).rejects.toBeInstanceOf(PetNotFoundError)
   })
 })

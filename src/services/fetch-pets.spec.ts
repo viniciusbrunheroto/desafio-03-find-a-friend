@@ -20,7 +20,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 3,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Baixo',
       size: 'Grande',
       photos: [{
@@ -38,7 +38,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 4,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Alto',
       size: 'Pequeno',
       photos: [{
@@ -56,7 +56,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 1,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Baixo',
       size: 'Médio',
       photos: [{
@@ -88,7 +88,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 3,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Baixo',
       size: 'Grande',
       photos: [{
@@ -106,7 +106,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 4,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Alto',
       size: 'Pequeno',
       photos: [{
@@ -124,7 +124,7 @@ describe('Fetch Pets Use Case', () => {
       description: null,
       energyLevel: 1,
       environment: null,
-      organization_id: '1',
+      organizationId: '1',
       independencyLevel: 'Baixo',
       size: 'Médio',
       photos: [{
