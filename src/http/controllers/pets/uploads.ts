@@ -4,6 +4,7 @@ import crypto from 'node:crypto'
 import { pipeline } from 'node:stream/promises'
 import path from 'node:path'
 import fs from 'node:fs'
+import { FormatNotAllowedError } from '@/services/errors/format-not-allowed.js'
 
 export async function uploads(req: FastifyRequest, res: FastifyReply) {
   
@@ -20,7 +21,7 @@ export async function uploads(req: FastifyRequest, res: FastifyReply) {
   for await (const part of parts) {
 
     if (!ACCEPTED_IMAGE_TYPES.includes(part.mimetype)){
-      throw new Error('formato não permitido!')
+      throw new FormatNotAllowedError()
     }
 
     const name = `${crypto.randomUUID()}-${part.filename}`

@@ -8,6 +8,7 @@ import { ZodError } from 'zod'
 import multipart from '@fastify/multipart'
 import fastifyStatic from '@fastify/static'
 import path from 'node:path'
+import { FormatNotAllowedError } from './services/errors/format-not-allowed.js'
 
 export const app = fastify()
 
@@ -40,6 +41,13 @@ app.register(organizationsRoutes)
 app.register(petsRoutes)
 
 app.setErrorHandler((error, _, res) => {
+
+  if (error instanceof FormatNotAllowedError) {
+    return res
+      .status(415)
+      .send({ message: 'Formato de arquivo inválido.'})
+  }
+  
   if (error instanceof ZodError) {
     return res
       .status(400)
