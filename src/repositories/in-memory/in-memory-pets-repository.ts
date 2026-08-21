@@ -51,14 +51,34 @@ export class InMemoryPetsRepository implements PetsRepository{
       return null
     }
 
-    return pet
+    const petPhotos = this.petPhotos.filter(pet => pet.pet_id === petId)
+
+    const petRequirements = this.petRequirements.filter(pet => pet.pet_id === petId)
+
+    return {
+      ...pet,
+      petPhotos,
+      petRequirements,
+    }
   }
 
 
   async findMany({city, age, energyLevel, independencyLevel, size}: FetchPetsFilters) {
-    return this.pets.filter((pet) => pet.city === city &&
-  (!age || age === age) && (!energyLevel || pet.energy_level === energyLevel) && 
-  (!independencyLevel || pet.independency_level === independencyLevel) && 
-  (!size || pet.size === size))
+
+    const pets = this.pets.filter((pet) => pet.city === city &&
+    (!age || age === age) && (!energyLevel || pet.energy_level === energyLevel) && 
+    (!independencyLevel || pet.independency_level === independencyLevel) && 
+    (!size || pet.size === size))
+
+
+    return pets.map(pet => ({
+      ...pet,
+      petPhotos: this.petPhotos.filter(
+        petPhoto => petPhoto.pet_id === pet.id
+      ),
+      petRequirements: this.petRequirements.filter(
+        petRequirement => petRequirement.pet_id === pet.id
+      )
+    })) 
   }
 }

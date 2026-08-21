@@ -1,5 +1,4 @@
-import type { PetsRepository } from '@/repositories/pets-repository.js'
-import type { Pet } from '../../prisma/generated/prisma/client.js'
+import type { PetsRepository, PetWithRelations } from '@/repositories/pets-repository.js'
 import { PetNotFoundError } from './errors/pet-not-found-error.js'
 
 interface GetPetDetailsUseCaseRequest {
@@ -7,12 +6,12 @@ interface GetPetDetailsUseCaseRequest {
 }
 
 interface GetPetDetailsUseCaseResponse {
-    pet: Pet
+    pet: PetWithRelations
 }
 
 
 export class GetPetDetailsUseCase {
-  constructor(private petsRepository: PetsRepository ) {}
+  constructor(private petsRepository: PetsRepository) {}
 
   async execute({petId}:GetPetDetailsUseCaseRequest ): Promise<GetPetDetailsUseCaseResponse> {
     const pet = await this.petsRepository.findById(petId)

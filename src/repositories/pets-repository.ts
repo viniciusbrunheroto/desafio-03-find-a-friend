@@ -1,4 +1,4 @@
-import type { Pet } from '../../prisma/generated/prisma/client.js'
+import type { Pet, PetPhoto, PetRequirement } from '../../prisma/generated/prisma/client.js'
 
 export interface PetCreateInput {
     id?: string
@@ -27,9 +27,13 @@ export interface FetchPetsFilters{
     size?: 'Pequenino' | 'Pequeno' | 'Médio' | 'Grande'
 }
 
+export type PetWithRelations = Pet & {
+    petPhotos: PetPhoto[]
+    petRequirements: PetRequirement[]
+}
 
 export interface PetsRepository {
    create(data: PetCreateInput): Promise<Pet>
-   findMany(data: FetchPetsFilters ): Promise<Pet[]>
-   findById(petId: string): Promise<Pet | null>
+   findMany(data: FetchPetsFilters ): Promise<PetWithRelations[]>
+   findById(petId: string): Promise<PetWithRelations | null>
 }

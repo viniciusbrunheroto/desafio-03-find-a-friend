@@ -40,7 +40,13 @@ export class PrismaPetsRepository implements PetsRepository {
         ...(data.energyLevel && {energy_level: data.energyLevel}),
         ...(data.independencyLevel && {independency_level: data.independencyLevel}),
         ...(data.size && { size: data.size}),
-      }
+      },
+      include: {
+        petPhotos: {
+          take: 1,
+        }, 
+        petRequirements: true,
+      },
     })
 
     return pets
@@ -51,7 +57,10 @@ export class PrismaPetsRepository implements PetsRepository {
     const pet = await prisma.pet.findUnique({
       where: {
         id: petId,
-      }
+      },
+      include: { 
+        petPhotos: true,
+        petRequirements: true,}
     })
 
     return pet
